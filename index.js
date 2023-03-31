@@ -24,18 +24,20 @@ io.on("connection", (socket) => {
     })
 
     socket.on("call-user", (data) => {
-
+        console.log("call-user", data);
         const socketId = userIdToSocketMapping.get(data.userID)
         const fromUser = socketMappingToUserId.get(socketId)
         socket.to(socketId).emit("incomming-call", { from: data.from, offer: data.offer })
+        console.log("incomming-call", { from: data.from, offer: data.offer });
 
     })
 
     socket.on("call-accepted", (data) => {
-
+        console.log("call-accepted", data);
         const { userID, ans } = data
         const socketId = userIdToSocketMapping.get(userID)
         socket.to(socketId).emit("call-accepted", { userID, ans })
+        console.log("call-accepted", { userID, ans });
 
     })
 
